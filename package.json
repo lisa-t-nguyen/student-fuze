@@ -22,11 +22,12 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.19.6",
+    "@babel/core": "^7.20.2",
     "@babel/plugin-transform-react-jsx": "^7.19.0",
-    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-env": "^7.20.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.8",
-    "babel-loader": "^8.2.5",
+    "autoprefixer": "^10.4.13",
+    "babel-loader": "^8.3.0",
     "connect-livereload": "^0.6.1",
     "css-loader": "^6.7.1",
     "error-overlay-webpack-plugin": "^1.1.0",
@@ -42,6 +43,7 @@
     "livereload": "^0.9.3",
     "markuplint": "^2.11.0",
     "nodemon": "^2.0.20",
+    "postcss-loader": "^7.0.1",
     "react-refresh": "^0.14.0",
     "sass": "^1.56.1",
     "sass-loader": "^13.2.0",
