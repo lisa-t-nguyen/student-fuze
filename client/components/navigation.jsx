@@ -13,6 +13,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
+import GradingIcon from '@mui/icons-material/Grading';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import DescriptionIcon from '@mui/icons-material/Description';
+import {
+  ListItemIcon
+} from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -38,13 +46,62 @@ function Navigation(props) {
           sx={{ fontFamily: 'Poppins', marginLeft: 1 }}
         />
         <h1 style={{ fontFamily: 'Poppins', paddingLeft: 12 }}>Navigation Menu</h1>
-        {['Add a Student', 'Attendance', 'Demographics', 'Grades', 'Notes', 'Referrals', 'Supports'].map((text, index) => (
-          <ListItem key={text} disablePadding sx={{ fontFamily: 'Poppins' }}>
-            <ListItemButton>
-              <ListItemText primary={text} sx={{ fontFamily: 'Poppins' }}/>
-            </ListItemButton>
-          </ListItem>
-        ))}
+        <ListItem disablePadding>
+          <ListItemButton component="a" href="#addstudent">
+            <ListItemIcon>
+              <PersonAddIcon />
+            </ListItemIcon>
+            <ListItemText primary="Add a student" href="#addstudent"/>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component="a" href="#attendance">
+            <ListItemIcon>
+              <CalendarMonthIcon />
+            </ListItemIcon>
+            <ListItemText primary="Attendance" href="#attendance" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component="a" href="#demographics">
+            <ListItemIcon>
+              <PermIdentityIcon />
+            </ListItemIcon>
+            <ListItemText primary="Demographics" href="#demographics" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component="a" href="#grades">
+            <ListItemIcon>
+              <GradingIcon />
+            </ListItemIcon>
+            <ListItemText primary="Grades" href="#grades"/>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component="a" href="#notes">
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Notes" href="#notes"/>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component="a" href="#referrals">
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Referrals" href="#referrals" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component="a" href="#supports">
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Supports" href="#supports" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </div>
   );
