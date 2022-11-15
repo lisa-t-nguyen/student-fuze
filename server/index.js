@@ -63,6 +63,8 @@ app.post('/api/students', (req, res, next) => {
 
 });
 
+// Add attendance data POST method
+
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);
 });
