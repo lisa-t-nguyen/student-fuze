@@ -109,7 +109,6 @@ CREATE TABLE "public"."studentGradeYears" (
 	"yearStart" integer NOT NULL,
 	"yearEnd" integer NOT NULL,
 	"gradeLevel" integer NOT NULL,
-	"studentId" integer NOT NULL,
 	CONSTRAINT "studentGradeYears_pk" PRIMARY KEY ("studentGradeYearId")
 ) WITH (
   OIDS=FALSE
@@ -124,6 +123,7 @@ CREATE TABLE "public"."studentPhoto" (
   OIDS=FALSE
 );
 
+ALTER SEQUENCE "students_studentId_seq" RESTART WITH 16500;
 ALTER TABLE "referrals" ADD CONSTRAINT "referrals_fk0" FOREIGN KEY ("studentId") REFERENCES "students"("studentId");
 ALTER TABLE "referrals" ADD CONSTRAINT "referrals_fk1" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 ALTER TABLE "referrals" ADD CONSTRAINT "referrals_fk2" FOREIGN KEY ("studentGradeYearId") REFERENCES "studentGradeYears"("studentGradeYearId");
@@ -141,5 +141,4 @@ ALTER TABLE "grades" ADD CONSTRAINT "grades_fk2" FOREIGN KEY ("studentId") REFER
 ALTER TABLE "grades" ADD CONSTRAINT "grades_fk3" FOREIGN KEY ("studentGradeYearId") REFERENCES "studentGradeYears"("studentGradeYearId");
 ALTER TABLE "attendance" ADD CONSTRAINT "attendance_fk0" FOREIGN KEY ("studentId") REFERENCES "students"("studentId");
 ALTER TABLE "attendance" ADD CONSTRAINT "attendance_fk1" FOREIGN KEY ("studentGradeYearId") REFERENCES "studentGradeYears"("studentGradeYearId");
-ALTER TABLE "studentGradeYears" ADD CONSTRAINT "studentGradeYears_fk0" FOREIGN KEY ("studentId") REFERENCES "students"("studentId");
 ALTER TABLE "studentPhoto" ADD CONSTRAINT "studentPhoto_fk0" FOREIGN KEY ("studentId") REFERENCES "students"("studentId");
