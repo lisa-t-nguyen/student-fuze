@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Avatar from '@mui/material/Avatar';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import React from 'react';
@@ -81,13 +81,13 @@ export default class AddStudents extends React.Component {
         >
         <Box sx={{ marginLeft: 3, marginTop: 3 }}>
           <Stack direction="row" spacing={2} sx={{ display: 'flex', alignItems: 'center', marginBottom: 0.5 }}>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <AccountCircleIcon sx={{ fontSize: 45, color: 'gray' }} />
             <h2 style={{ fontFamily: 'Poppins' }}>Add a new student</h2>
           </Stack>
         </Box>
         <Box sx={{ borderBottom: 'solid', borderColor: '#4B6869' }}/>
         <form onSubmit={this.handleSubmit}>
-          <Grid2 container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ marginTop: 2, marginLeft: 2 }}>
+          <Grid2 container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ marginTop: 2, marginLeft: 2, marginRight: 2 }}>
             <Grid2 xs={6}>
               <TextField id="outlined-search" label="First Name" type="text" onChange={this.handleFirstNameChange} required sx={{ maxWidth: '300px', width: '100%' }} />
             </Grid2>
@@ -107,7 +107,7 @@ export default class AddStudents extends React.Component {
               <TextField id="outlined-search" label="Year End" type="text" onChange={this.handleYearEnd} required sx={{ maxWidth: '300px', width: '100%' }}/>
             </Grid2>
             <Grid2>
-              <Button sx={{ fontFamily: 'Poppins', fontWeight: 'bolder', color: '#006875', border: 2, borderRadius: 15 }} onClick={this.handleSubmit}>Submit</Button>
+              <Button variant="contained" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder', color: 'FFFFFF', border: 2, borderRadius: 15, backgroundColor: '#4B6869', '&:hover': { backgroundColor: 'white', color: '#4B6869' } }} onClick={this.handleSubmit}>Submit</Button>
             </Grid2>
           </Grid2>
         </form>

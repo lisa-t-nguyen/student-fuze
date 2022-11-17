@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -22,7 +22,15 @@ import {
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import SearchStudent from '../pages/search-for-student';
+// import PropTypes from 'prop-types';
+// import Button from '@mui/material/Button';
+// import DialogTitle from '@mui/material/DialogTitle';
+// import DialogContent from '@mui/material/DialogContent';
+// import DialogActions from '@mui/material/DialogActions';
+// import Dialog from '@mui/material/Dialog';
+// import RadioGroup from '@mui/material/RadioGroup';
+// import Radio from '@mui/material/Radio';
+// import FormControlLabel from '@mui/material/FormControlLabel';
 
 const drawerWidth = 240;
 
@@ -34,6 +42,31 @@ function Navigation(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const [name, setName] = useState('');
+  // const [students, setStudents] = useState([]);
+
+  // const handleSearch = async e => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch(`http://localhost:3000/api/students/?name=${name}`);
+  //     const parseResponse = await response.json();
+  //     console.log(parseResponse);
+  //   } catch (err) {
+  //     console.error(err.message);
+  //   }
+  // };
+  const handleSearch = event => {
+    fetch(`/api/students/?name=${name}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => response.json())
+      .then(data => {
+        // eslint-disable-next-line no-console
+        console.log(data);
+      });
+  };
+
   const drawer = (
     <div>
       <Toolbar/>
@@ -42,13 +75,16 @@ function Navigation(props) {
           component="form"
           sx={{ ml: 1.5, p: '2px 4px', display: 'flex', alignItems: 'center', width: 210 }}
         >
-          <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={<SearchStudent/>}>
+          <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
             <SearchIcon />
           </IconButton>
           <InputBase
             sx={{ ml: 0, flex: 1, fontFamily: 'Poppins', fontWeight: 'bolder' }}
             placeholder="Search for student"
             inputProps={{ 'aria-label': 'search for student' }}
+            name="name"
+            value={name}
+            onChange={e => setName(e.target.value)}
           />
         </Paper>
         <h1 style={{ fontFamily: 'Poppins', paddingLeft: 12 }}>Navigation Menu</h1>
@@ -145,14 +181,13 @@ function Navigation(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true // Better open performance on mobile.
+            keepMounted: true
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
@@ -179,5 +214,4 @@ function Navigation(props) {
     </Box>
   );
 }
-
 export default Navigation;
