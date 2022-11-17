@@ -63,6 +63,29 @@ app.post('/api/students', (req, res, next) => {
 
 });
 
+// GET students search results query
+app.get('/api/students', (req, res, next) => {
+  const { name } = req.query;
+  const sql = `
+  select *
+  from "students"
+  where "firstName" || ' ' || "lastName" ilike $1
+  `;
+
+  const params = [`%${name}%`];
+
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'An unexpected error occurred'
+      });
+    });
+});
+
 // Add attendance data POST method
 
 app.listen(process.env.PORT, () => {

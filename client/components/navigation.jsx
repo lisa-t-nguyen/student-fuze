@@ -11,7 +11,6 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import GradingIcon from '@mui/icons-material/Grading';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -20,6 +19,10 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import {
   ListItemIcon
 } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import SearchStudent from '../pages/search-for-student';
 
 const drawerWidth = 240;
 
@@ -35,15 +38,19 @@ function Navigation(props) {
     <div>
       <Toolbar/>
       <List>
-        <TextField
-          id="outlined-read-only-input"
-          label="Search"
-          defaultValue="Student name or ID"
-          InputProps={{
-            readOnly: true
-          }}
-          sx={{ fontFamily: 'Poppins', marginLeft: 1 }}
-        />
+        <Paper
+          component="form"
+          sx={{ ml: 1.5, p: '2px 4px', display: 'flex', alignItems: 'center', width: 210 }}
+        >
+          <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={<SearchStudent/>}>
+            <SearchIcon />
+          </IconButton>
+          <InputBase
+            sx={{ ml: 0, flex: 1, fontFamily: 'Poppins', fontWeight: 'bolder' }}
+            placeholder="Search for student"
+            inputProps={{ 'aria-label': 'search for student' }}
+          />
+        </Paper>
         <h1 style={{ fontFamily: 'Poppins', paddingLeft: 12 }}>Navigation Menu</h1>
         <ListItem disablePadding>
           <ListItemButton component="a" href="#addstudent">
