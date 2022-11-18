@@ -106,7 +106,7 @@ export default class AddStudents extends React.Component {
             <Grid2 xs={6}>
               <TextField id="outlined-search" label="Year End" type="text" onChange={this.handleYearEnd} required sx={{ maxWidth: '300px', width: '100%' }}/>
             </Grid2>
-            <Grid2>
+            <Grid2 sx={{ marginTop: 10 }}>
               <Button variant="contained" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder', color: 'FFFFFF', border: 2, borderRadius: 15, backgroundColor: '#4B6869', '&:hover': { backgroundColor: 'white', color: '#4B6869' } }} onClick={this.handleSubmit}>Submit</Button>
             </Grid2>
           </Grid2>

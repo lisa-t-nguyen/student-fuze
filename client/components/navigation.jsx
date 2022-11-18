@@ -22,15 +22,13 @@ import {
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-// import PropTypes from 'prop-types';
-// import Button from '@mui/material/Button';
-// import DialogTitle from '@mui/material/DialogTitle';
-// import DialogContent from '@mui/material/DialogContent';
-// import DialogActions from '@mui/material/DialogActions';
-// import Dialog from '@mui/material/Dialog';
-// import RadioGroup from '@mui/material/RadioGroup';
-// import Radio from '@mui/material/Radio';
-// import FormControlLabel from '@mui/material/FormControlLabel';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Slide from '@mui/material/Slide';
+import Button from '@mui/material/Button';
 
 const drawerWidth = 240;
 
@@ -42,19 +40,19 @@ function Navigation(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  });
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const [name, setName] = useState('');
   // const [students, setStudents] = useState([]);
 
-  // const handleSearch = async e => {
-  //   e.preventDefault();
-  //   try {
-  //     const response = await fetch(`http://localhost:3000/api/students/?name=${name}`);
-  //     const parseResponse = await response.json();
-  //     console.log(parseResponse);
-  //   } catch (err) {
-  //     console.error(err.message);
-  //   }
-  // };
   const handleSearch = event => {
     fetch(`/api/students/?name=${name}`, {
       method: 'GET',
@@ -62,9 +60,34 @@ function Navigation(props) {
     })
       .then(response => response.json())
       .then(data => {
-        // eslint-disable-next-line no-console
-        console.log(data);
+        // setStudents(data);
+        if (!data) {
+          setOpen(true);
+        }
       });
+    if (setOpen(true)) {
+      return (
+        <div>
+          <Dialog
+          open={open}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={handleClose}
+          aria-describedby="alert-dialog-slide-description"
+        >
+            <DialogTitle>No students were found with your search parameters</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-slide-description">
+                Please try again.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Ok</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      );
+    }
   };
 
   const drawer = (
