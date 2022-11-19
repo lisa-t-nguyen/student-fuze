@@ -88,25 +88,25 @@ export default class AddStudents extends React.Component {
         <Box sx={{ borderBottom: 'solid', borderColor: '#4B6869' }}/>
         <form onSubmit={this.handleSubmit}>
           <Grid2 container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ marginTop: 2, marginLeft: 2, marginRight: 2 }}>
-            <Grid2 xs={6}>
+            <Grid2 xs={6} sx={{ marginTop: 3 }}>
               <TextField id="outlined-search" label="First Name" type="text" onChange={this.handleFirstNameChange} required sx={{ maxWidth: '300px', width: '100%' }} />
             </Grid2>
-            <Grid2 xs={6}>
+            <Grid2 xs={6} sx={{ marginTop: 3 }}>
               <TextField id="outlined-search" label="Last Name" type="text" onChange={this.handleLastNameChange} required sx={{ maxWidth: '300px', width: '100%' }}/>
             </Grid2>
-            <Grid2 xs={6}>
+            <Grid2 xs={6} sx={{ marginTop: 3 }}>
               <TextField id="outlined-named" InputLabelProps={{ shrink: true }} label="Date of Birth" type="date" onChange={this.handleDobChange} required sx={{ maxWidth: '300px', width: '100%' }}/>
             </Grid2>
-            <Grid2 xs={6}>
+            <Grid2 xs={6} sx={{ marginTop: 3 }}>
               <TextField id="outlined-search" label="Grade" type="text" onChange={this.handleGradeChange} required sx={{ maxWidth: '300px', width: '100%' }}/>
             </Grid2>
-            <Grid2 xs={6}>
+            <Grid2 xs={6} sx={{ marginTop: 3 }}>
               <TextField id="outlined-search" label="Year Start" type="text" onChange={this.handleYearStart} sx={{ maxWidth: '300px', width: '100%' }}/>
             </Grid2>
-            <Grid2 xs={6}>
+            <Grid2 xs={6} sx={{ marginTop: 3 }}>
               <TextField id="outlined-search" label="Year End" type="text" onChange={this.handleYearEnd} required sx={{ maxWidth: '300px', width: '100%' }}/>
             </Grid2>
-            <Grid2 sx={{ marginTop: 10 }}>
+            <Grid2 sx={{ marginTop: 4 }}>
               <Button variant="contained" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder', color: 'FFFFFF', border: 2, borderRadius: 15, backgroundColor: '#4B6869', '&:hover': { backgroundColor: 'white', color: '#4B6869' } }} onClick={this.handleSubmit}>Submit</Button>
             </Grid2>
           </Grid2>

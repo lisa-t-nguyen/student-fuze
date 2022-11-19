@@ -56,7 +56,7 @@ export default class Attendance extends React.Component {
               sx={{ marginTop: 3, width: 355 }}
             />
           </Grid2>
-          <Grid2 sx={{ marginTop: 10 }}>
+          <Grid2 sx={{ marginTop: 6 }}>
             <Button variant="contained" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder', color: 'FFFFFF', border: 2, borderRadius: 15, backgroundColor: '#4B6869', '&:hover': { backgroundColor: 'white', color: '#4B6869' } }}>Edit</Button>
             <Button variant="contained" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder', color: 'FFFFFF', border: 2, borderRadius: 15, backgroundColor: '#4B6869', '&:hover': { backgroundColor: 'white', color: '#4B6869' } }}>Submit</Button>
           </Grid2>
