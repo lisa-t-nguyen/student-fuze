@@ -89,7 +89,6 @@ function Navigation(props) {
                 autoFocus
                 margin="dense"
                 id="name"
-                label="Search"
                 type="text"
                 fullWidth
                 variant="standard"

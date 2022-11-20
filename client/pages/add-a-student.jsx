@@ -62,12 +62,12 @@ export default class AddStudents extends React.Component {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          dateOfBirth: data.dateOfBirth,
-          gradeLevel: data.gradeLevel,
-          yearStart: data.yearStart,
-          yearEnd: data.yearEnd
+          firstName: '',
+          lastName: '',
+          dateOfBirth: '',
+          gradeLevel: '',
+          yearStart: '',
+          yearEnd: ''
         });
       });
   }
@@ -89,22 +89,22 @@ export default class AddStudents extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <Grid2 container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ marginTop: 2, marginLeft: 2, marginRight: 2 }}>
             <Grid2 xs={6} sx={{ marginTop: 3 }}>
-              <TextField id="outlined-search" label="First Name" type="text" onChange={this.handleFirstNameChange} required sx={{ maxWidth: '300px', width: '100%' }} />
+              <TextField id="outlined-uncontrolled" label="First Name" type="text" onChange={this.handleFirstNameChange} required sx={{ maxWidth: '300px', width: '100%' }} value={this.state.firstName}/>
             </Grid2>
             <Grid2 xs={6} sx={{ marginTop: 3 }}>
-              <TextField id="outlined-search" label="Last Name" type="text" onChange={this.handleLastNameChange} required sx={{ maxWidth: '300px', width: '100%' }}/>
+              <TextField id="outlined-uncontrolled" label="Last Name" type="text" onChange={this.handleLastNameChange} required sx={{ maxWidth: '300px', width: '100%' }} value={this.state.lastName}/>
             </Grid2>
             <Grid2 xs={6} sx={{ marginTop: 3 }}>
-              <TextField id="outlined-named" InputLabelProps={{ shrink: true }} label="Date of Birth" type="date" onChange={this.handleDobChange} required sx={{ maxWidth: '300px', width: '100%' }}/>
+              <TextField id="outlined-uncontrolled" InputLabelProps={{ shrink: true }} label="Date of Birth" type="date" onChange={this.handleDobChange} required sx={{ maxWidth: '300px', width: '100%' }} value={this.state.dateOfBirth}/>
             </Grid2>
             <Grid2 xs={6} sx={{ marginTop: 3 }}>
-              <TextField id="outlined-search" label="Grade" type="text" onChange={this.handleGradeChange} required sx={{ maxWidth: '300px', width: '100%' }}/>
+              <TextField id="outlined-uncontrolled" label="Grade" type="text" onChange={this.handleGradeChange} required sx={{ maxWidth: '300px', width: '100%' }} value={this.state.gradeLevel}/>
             </Grid2>
             <Grid2 xs={6} sx={{ marginTop: 3 }}>
-              <TextField id="outlined-search" label="Year Start" type="text" onChange={this.handleYearStart} sx={{ maxWidth: '300px', width: '100%' }}/>
+              <TextField id="outlined-uncontrolled" label="Year Start" type="text" onChange={this.handleYearStart} sx={{ maxWidth: '300px', width: '100%' }} value={this.state.yearStart}/>
             </Grid2>
             <Grid2 xs={6} sx={{ marginTop: 3 }}>
-              <TextField id="outlined-search" label="Year End" type="text" onChange={this.handleYearEnd} required sx={{ maxWidth: '300px', width: '100%' }}/>
+              <TextField id="outlined-uncontrolled" label="Year End" type="text" onChange={this.handleYearEnd} required sx={{ maxWidth: '300px', width: '100%' }} value={this.state.yearEnd}/>
             </Grid2>
             <Grid2 sx={{ marginTop: 4 }}>
               <Button variant="contained" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder', color: 'FFFFFF', border: 2, borderRadius: 15, backgroundColor: '#4B6869', '&:hover': { backgroundColor: 'white', color: '#4B6869' } }} onClick={this.handleSubmit}>Submit</Button>
