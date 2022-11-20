@@ -22,12 +22,12 @@ import {
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
 import Button from '@mui/material/Button';
 
 const drawerWidth = 240;
@@ -40,18 +40,19 @@ function Navigation(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
-  });
+  const [name, setName] = useState('');
+  // const [students, setStudents] = useState([]);
 
+  // Code for Dialog/Modal
   const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
   const handleClose = () => {
     setOpen(false);
   };
-
-  const [name, setName] = useState('');
-  // const [students, setStudents] = useState([]);
 
   const handleSearch = event => {
     fetch(`/api/students/?name=${name}`, {
@@ -61,33 +62,9 @@ function Navigation(props) {
       .then(response => response.json())
       .then(data => {
         // setStudents(data);
-        if (!data) {
-          setOpen(true);
-        }
+        // eslint-disable-next-line no-console
+        console.log(data);
       });
-    if (setOpen(true)) {
-      return (
-        <div>
-          <Dialog
-          open={open}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={handleClose}
-          aria-describedby="alert-dialog-slide-description"
-        >
-            <DialogTitle>No students were found with your search parameters</DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-slide-description">
-                Please try again.
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Ok</Button>
-            </DialogActions>
-          </Dialog>
-        </div>
-      );
-    }
   };
 
   const drawer = (
@@ -98,16 +75,38 @@ function Navigation(props) {
           component="form"
           sx={{ ml: 1.5, p: '2px 4px', display: 'flex', alignItems: 'center', width: 210 }}
         >
-          <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
+          <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleClickOpen}>
             <SearchIcon />
           </IconButton>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Search for student</DialogTitle>
+            <DialogContent>
+              <DialogContentText sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>
+                Please enter first or last name of student
+              </DialogContentText>
+              <TextField
+                sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Search"
+                type="text"
+                fullWidth
+                variant="standard"
+                onChange={e => setName(e.target.value)}
+                name="name"
+                value={name}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }} onClick={handleClose}>Close</Button>
+              <Button sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }} onClick={handleSearch}>Submit</Button>
+            </DialogActions>
+          </Dialog>
           <InputBase
             sx={{ ml: 0, flex: 1, fontFamily: 'Poppins', fontWeight: 'bolder' }}
             placeholder="Search for student"
             inputProps={{ 'aria-label': 'search for student' }}
-            name="name"
-            value={name}
-            onChange={e => setName(e.target.value)}
           />
         </Paper>
         <h1 style={{ fontFamily: 'Poppins', paddingLeft: 12 }}>Navigation Menu</h1>
