@@ -22,13 +22,20 @@ import {
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import TextField from '@mui/material/TextField';
+// import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+const moment = require('moment');
 
 const drawerWidth = 240;
 
@@ -40,19 +47,17 @@ function Navigation(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const [name, setName] = useState('');
-  // const [students, setStudents] = useState([]);
-
   // Code for Dialog/Modal
   const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  // Code for Search function when submitting in text field
+
+  const [name, setName] = useState('');
+  const [students, setStudents] = useState([]);
 
   const handleSearch = event => {
     fetch(`/api/students/?name=${name}`, {
@@ -61,11 +66,16 @@ function Navigation(props) {
     })
       .then(response => response.json())
       .then(data => {
-        // setStudents(data);
+        setStudents(data);
         // eslint-disable-next-line no-console
         console.log(data);
       });
+    setOpen(true);
   };
+
+  // Code for table within modal/dialog pop-up
+
+  // Code for navigation drawer
 
   const drawer = (
     <div>
@@ -75,37 +85,49 @@ function Navigation(props) {
           component="form"
           sx={{ ml: 1.5, p: '2px 4px', display: 'flex', alignItems: 'center', width: 210 }}
         >
-          <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleClickOpen}>
+          <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
             <SearchIcon />
           </IconButton>
           <Dialog open={open} onClose={handleClose}>
-            <DialogTitle sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Search for student</DialogTitle>
+            <DialogTitle sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Search Results</DialogTitle>
             <DialogContent>
-              <DialogContentText sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>
-                Please enter first or last name of student
-              </DialogContentText>
-              <TextField
-                sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}
-                autoFocus
-                margin="dense"
-                id="name"
-                type="text"
-                fullWidth
-                variant="standard"
-                onChange={e => setName(e.target.value)}
-                name="name"
-                value={name}
-              />
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650, fontFamily: 'Poppins' }} size="small" aria-label="a dense table">
+                  <TableHead sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>
+                    <TableRow sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>
+                      <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>First Name</TableCell>
+                      <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Last Name</TableCell>
+                      <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Student ID</TableCell>
+                      <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Date of Birth</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {students.map(row => (
+                      <TableRow
+                        key={row.name}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.firstName}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.lastName}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.studentId}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{moment(row.dateOfBirth).utc().format('L')}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </DialogContent>
             <DialogActions>
-              <Button sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }} onClick={handleClose}>Close</Button>
-              <Button sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }} onClick={handleSearch}>Submit</Button>
+              <Button sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }} onClick={handleClose}>Ok</Button>
             </DialogActions>
           </Dialog>
           <InputBase
             sx={{ ml: 0, flex: 1, fontFamily: 'Poppins', fontWeight: 'bolder' }}
             placeholder="Search for student"
             inputProps={{ 'aria-label': 'search for student' }}
+            onChange={e => setName(e.target.value)}
+            name="name"
+            value={name}
           />
         </Paper>
         <h1 style={{ fontFamily: 'Poppins', paddingLeft: 12 }}>Navigation Menu</h1>
