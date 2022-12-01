@@ -33,7 +33,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-const format = require('date-fns/format');
+import { format } from 'date-fns';
 
 const drawerWidth = 240;
 
@@ -105,7 +105,7 @@ function Navigation(props) {
                         <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.firstName}</TableCell>
                         <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.lastName}</TableCell>
                         <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.studentId}</TableCell>
-                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{format(row.dateOfBirth, 'P')}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{format(new Date(row.dateOfBirth), 'MM/dd/yyyy', { timeZone: 'Europe/Berlin' })}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -185,7 +185,6 @@ function Navigation(props) {
       </List>
     </div>
   );
-
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (

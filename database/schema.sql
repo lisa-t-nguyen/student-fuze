@@ -57,7 +57,7 @@ CREATE TABLE "public"."students" (
 	"studentId" serial NOT NULL,
 	"firstName" TEXT NOT NULL,
 	"lastName" TEXT NOT NULL,
-	"dateOfBirth" DATE NOT NULL,
+	"dateOfBirth" timestamp with time zone,
 	"studentGradeYearId" integer NOT NULL,
 	CONSTRAINT "students_pk" PRIMARY KEY ("studentId")
 ) WITH (
