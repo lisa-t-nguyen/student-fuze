@@ -7,8 +7,6 @@ const pg = require('pg');
 
 app.use(express.json());
 
-app.use(errorMiddleware);
-
 app.use(staticMiddleware);
 
 const db = new pg.Pool({
@@ -54,16 +52,29 @@ app.post('/api/students', (req, res, next) => {
           });
         });
     })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'An unexpected error occurred'
-      });
-    });
+    .catch(err => next(err));
+});
 
+// GET students search results query
+app.get('/api/students', (req, res, next) => {
+  const { name } = req.query;
+  const sql = `
+  select *
+  from "students"
+  where "firstName" || ' ' || "lastName" ilike $1
+  `;
+
+  const params = [`%${name}%`];
+
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
 });
 
 // Add attendance data POST method
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   process.stdout.write(`\n\napp listening on port ${process.env.PORT}\n\n`);

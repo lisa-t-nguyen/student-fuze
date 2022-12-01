@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,7 +11,6 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import GradingIcon from '@mui/icons-material/Grading';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -20,6 +19,21 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import {
   ListItemIcon
 } from '@mui/material';
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+const format = require('date-fns/format');
 
 const drawerWidth = 240;
 
@@ -31,19 +45,86 @@ function Navigation(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  // Code for Dialog/Modal
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  // Code for Search function when submitting in text field
+
+  const [name, setName] = useState('');
+  const [students, setStudents] = useState([]);
+
+  const handleSearch = event => {
+    fetch(`/api/students/?name=${name}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(response => response.json())
+      .then(data => {
+        setStudents(data);
+      });
+    setOpen(true);
+  };
+
+  // Code for table within modal/dialog pop-up
+  // Code for navigation drawer
+
   const drawer = (
     <div>
       <Toolbar/>
       <List>
-        <TextField
-          id="outlined-read-only-input"
-          label="Search"
-          defaultValue="Student name or ID"
-          InputProps={{
-            readOnly: true
-          }}
-          sx={{ fontFamily: 'Poppins', marginLeft: 1 }}
-        />
+        <Paper
+          component="form"
+          sx={{ ml: 1.5, p: '2px 4px', display: 'flex', alignItems: 'center', width: 210 }}
+        >
+          <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
+            <SearchIcon />
+          </IconButton>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Search Results</DialogTitle>
+            <DialogContent>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650, fontFamily: 'Poppins' }} size="small" aria-label="a dense table">
+                  <TableHead sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>
+                    <TableRow sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>
+                      <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>First Name</TableCell>
+                      <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Last Name</TableCell>
+                      <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Student ID</TableCell>
+                      <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>Date of Birth</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {students.map(row => (
+                      <TableRow
+                        key={row.name}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      >
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.firstName}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.lastName}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.studentId}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{format(row.dateOfBirth, 'P')}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </DialogContent>
+            <DialogActions>
+              <Button sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }} onClick={handleClose}>Ok</Button>
+            </DialogActions>
+          </Dialog>
+          <InputBase
+            sx={{ ml: 0, flex: 1, fontFamily: 'Poppins', fontWeight: 'bolder' }}
+            placeholder="Search for student"
+            inputProps={{ 'aria-label': 'search for student' }}
+            onChange={e => setName(e.target.value)}
+            name="name"
+            value={name}
+          />
+        </Paper>
         <h1 style={{ fontFamily: 'Poppins', paddingLeft: 12 }}>Navigation Menu</h1>
         <ListItem disablePadding>
           <ListItemButton component="a" href="#addstudent">
@@ -138,14 +219,13 @@ function Navigation(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true // Better open performance on mobile.
+            keepMounted: true
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
@@ -172,5 +252,4 @@ function Navigation(props) {
     </Box>
   );
 }
-
 export default Navigation;
