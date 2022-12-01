@@ -22,11 +22,9 @@ import {
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-// import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
@@ -35,7 +33,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-const moment = require('moment');
+const format = require('date-fns/format');
 
 const drawerWidth = 240;
 
@@ -67,14 +65,11 @@ function Navigation(props) {
       .then(response => response.json())
       .then(data => {
         setStudents(data);
-        // eslint-disable-next-line no-console
-        console.log(data);
       });
     setOpen(true);
   };
 
   // Code for table within modal/dialog pop-up
-
   // Code for navigation drawer
 
   const drawer = (
@@ -110,7 +105,7 @@ function Navigation(props) {
                         <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.firstName}</TableCell>
                         <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.lastName}</TableCell>
                         <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.studentId}</TableCell>
-                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{moment(row.dateOfBirth).utc().format('L')}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{format(row.dateOfBirth, 'P')}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
