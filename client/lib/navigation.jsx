@@ -34,6 +34,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { format } from 'date-fns';
+import { zonedTimeToUtc } from 'date-fns-tz';
 
 const drawerWidth = 240;
 
@@ -105,7 +106,7 @@ function Navigation(props) {
                         <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.firstName}</TableCell>
                         <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.lastName}</TableCell>
                         <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{row.studentId}</TableCell>
-                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{format(new Date(row.dateOfBirth), 'MM/dd/yyyy', { timeZone: 'Europe/Berlin' })}</TableCell>
+                        <TableCell align="center" sx={{ fontFamily: 'Poppins', fontWeight: 'bolder' }}>{format(zonedTimeToUtc(row.dateOfBirth, 'Iceland'), 'MM / dd / yyyy')}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
