@@ -124,6 +124,7 @@ function Navigation(props) {
             onChange={e => setName(e.target.value)}
             name="name"
             value={name}
+            onKeyDown={e => { if (e.key === 'Enter') { handleSearch(); } }}
           />
         </Paper>
         <h1 style={{ fontFamily: 'Poppins', paddingLeft: 12 }}>Navigation Menu</h1>
