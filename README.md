@@ -28,7 +28,7 @@ Check out the application live at [https://student-fuze.lisanguyen.dev/](https:/
 - Users can search for a student using their student ID number
 - Users can edit student's demographic information
 - Users can delete a student
-- Users can careate an entry for notes for a student
+- Users can create an entry for notes for a student
 - Users can edit an entry for notes for a student
 - Users can delete an entry for notes for a student
 
